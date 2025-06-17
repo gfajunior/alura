@@ -5,10 +5,15 @@
 ## S - Spoofing (Falsificação)
 
 **a) Existe risco?**
+
 R: Sim.
+
 **b) Qual seria o risco?**
+
 R: Um atacante pode tentar criar uma conta usando o endereço de e-mail ou identidade de outra pessoa.
+
 **c) Que tipo de atacante se beneficiaria?**
+
 R: Alguém que deseja se passar por outra pessoa para realizar ações fraudulentas, como obter acesso a informações confidenciais ou realizar compras não autorizadas.
 
 ---
