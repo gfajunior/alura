@@ -1,6 +1,7 @@
 // import { type Request, type Response } from 'express'
 import { Request, Response } from 'express';
 import { Paciente } from './pacienteEntity.js'
+import { query, validationResult } from 'express-validator';
 import { AppDataSource } from '../data-source.js'
 import { Endereco } from '../enderecos/enderecoEntity.js'
 import { CPFValido } from './validacaoCPF.js'
@@ -10,6 +11,23 @@ import { AppError, Status } from '../error/ErrorHandler.js'
 import { encryptPassword } from '../utils/senhaUtils.js'
 import { pacienteSchema } from './pacienteYupSchema.js';
 import { sanitizacaoPaciente } from './pacienteSanitizations.js'
+
+// Regras de validação e sanitização
+export const consultaPorPacienteValidationRules = [
+  query('userInput')
+    .trim()
+    .notEmpty().withMessage('O campo de busca não pode ser vazio.')
+    .isString().withMessage('O valor de busca deve ser um texto.')
+    .isLength({ min: 2, max: 80 }).withMessage('A busca deve ter entre 2 e 80 caracteres.')
+    .custom((value) => {
+      const PadroesSuspeitos = /==|<script>|--|;/;
+      if (PadroesSuspeitos.test(value)) {
+        return Promise.reject('A entrada contém caracteres ou padrões não permitidos.');
+      }
+      return true;
+    })
+    .escape()
+];
 
 export const consultaPorPaciente = async (
   req: Request,
@@ -107,7 +125,7 @@ export const criarPaciente = async (
     res.status(202).json(pacienteSemDadosSensiveis)
   } catch (error) {
     if (error.name === 'ValidationError') {
-      res.status(400).json({ message: error.message })
+      res.status(400).json({ 'Página não encontrada. Verifique se o endereço está correto.': error })
     } else {
       res.status(502).json({ 'Paciente não foi criado': error })
       console.log(error)
