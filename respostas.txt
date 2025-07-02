@@ -4,5 +4,5 @@ R: Podemos dizer que CI é a base, o CD constrói sobre ela tornando o software 
 2) Explique o pipeline de entrega
 R: É uma ferramenta para a entrega contínua de software, permitindo que as equipes liberem novas funcionalidades e correções de bugs de forma rápida, segura e confiável.
 
-3) Cite ao menos um padrão de release e sua utilidade
+3) Cite ao menos um padrão de release e sua utilidade 
 R: Na Canary Releases uma nova versão é liberada para um pequeno subconjunto de usuários antes de ser disponibilizada para todos. Isso permite testar a nova versão em um ambiente real com usuários reais, identificar problemas e obter feedback antes de uma implantação completa. Se tudo correr bem, a nova versão é liberada para o restante dos usuários. Caso contrário, o rollout pode ser interrompido e a versão antiga mantida.
